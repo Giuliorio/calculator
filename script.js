@@ -4,7 +4,7 @@ let displayValue = [0],
     secondNumber
 
 const display = document.querySelector('.display')
-const items = document.querySelectorAll('.item')
+const allClearButton = document.querySelector('#ac')
 const signs = document.querySelectorAll('.sign')
 const numbers = document.querySelectorAll('.number')
 const pedios = document.querySelector('#period')
@@ -26,8 +26,13 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-        
+        console.log('hello')
 }
+
+allClearButton.addEventListener('click', () => {
+    displayValue = [0]
+    display.textContent = displayValue.join('')
+})
 
 numbers.forEach(number => {
     number.addEventListener('click', (e) => {
