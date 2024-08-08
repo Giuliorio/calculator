@@ -1,3 +1,14 @@
+let displayValue = [0],
+    firstNumber,
+    operator,
+    secondNumber
+
+const display = document.querySelector('.display')
+const items = document.querySelectorAll('.item')
+const signs = document.querySelectorAll('.sign')
+const numbers = document.querySelectorAll('.number')
+const pedios = document.querySelector('#period')
+
 function add(a, b) {
     return a + b
 }
@@ -13,3 +24,20 @@ function multiply(a, b) {
 function divide(a, b) {
     return a / b
 }
+
+function operate(a, b, operator) {
+        
+}
+
+numbers.forEach(number => {
+    number.addEventListener('click', (e) => {
+        if (displayValue.length === 1 && displayValue[0] == 0) {
+            displayValue[0] = e.currentTarget.textContent
+        } else {
+            displayValue.push(e.currentTarget.textContent)   
+        }  
+        display.textContent = displayValue.join('')
+    }) 
+})
+
+display.textContent = displayValue.join('')

@@ -58,7 +58,7 @@ body {
     opacity: 75%;
 }
 
-.number {
+.number, #period {
     background-color: #7E7C7C;
     flex: 1;
 }
