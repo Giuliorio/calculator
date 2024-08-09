@@ -29,10 +29,18 @@ function divide(a, b) {
 
 function operate(a, b, operator) {
     switch(operator) {
-        case 'addition': add(a, b)
-        case 'subtraction': subtract(a, b)
-        case 'multiplication': multiply(a, b)
-        case 'division': divide(a, b)
+        case 'addition':
+            add(a, b)
+            break
+        case 'subtraction': 
+            subtract(a, b)
+            break
+        case 'multiplication': 
+            multiply(a, b)
+            break
+        case 'division': 
+            divide(a, b)
+            break
         default: return
     }
 }
