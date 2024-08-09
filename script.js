@@ -26,7 +26,13 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-        console.log('hello')
+    switch(operator) {
+        case 'addition': add(a, b)
+        case 'subtraction': subtract(a, b)
+        case 'multiplication': multiply(a, b)
+        case 'division': divide(a, b)
+        default: return
+    }
 }
 
 allClearButton.addEventListener('click', () => {
