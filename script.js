@@ -1,15 +1,15 @@
-let displayValue = [0],
+let displayValue = '0',
     isFirstCharacter = true,
     firstNumber,
     operator,
     secondNumber
 
-const display = document.querySelector('.display')
+const displayText = document.querySelector('.display')
 const allClearButton = document.querySelector('#ac')
-const signs = document.querySelectorAll('.sign')
+const signButtons = document.querySelectorAll('.sign')
 const equalsButton = document.querySelector('#equals')
-const numbers = document.querySelectorAll('.number')
-const pedios = document.querySelector('#period')
+const numberButtons = document.querySelectorAll('.number')
+const periodButton = document.querySelector('#period')
 
 function add(a, b) {
     return a + b
@@ -38,37 +38,34 @@ function operate(a, b, operator) {
 }
 
 allClearButton.addEventListener('click', () => {
-    displayValue = [0]
-    display.textContent = displayValue.join('')
+    displayValue = '0'
+    display.textContent = displayValue
+    isFirstCharacter = true
 })
 
-numbers.forEach(number => {
-    number.addEventListener('click', (e) => {
+numberButtons.forEach(numberButton => {
+    numberButton.addEventListener('click', (e) => {
+        const number = e.currentTarget.textContent
         if (isFirstCharacter) {
             isFirstCharacter = false
-            displayValue[0] = e.currentTarget.textContent
+            displayValue = number
         } else {
-            displayValue.push(e.currentTarget.textContent)   
-        }  
-        display.textContent = displayValue.join('')
+            displayValue += number
+        }
+        displayText.textContent = displayValue
     }) 
 })
 
 equalsButton.addEventListener('click', (e => {
-    if (e.currentTarget.id === "equals") {
-        secondNumber = displayValue.join('')
-        operate(firstNumber, secondNumber, operator)
-        isFirstCharacter = true
-    }
+    secondNumber = displayValue
+    operate(firstNumber, secondNumber, operator)
+    isFirstCharacter = true
 }))
 
-signs.forEach(sign => {
-    sign.addEventListener('click', (e) => {
-        firstNumber = displayValue.join('')
+signButtons.forEach(signButton => {
+    signButton.addEventListener('click', (e) => {
+        firstNumber = displayValue
         operator = e.currentTarget.id
         isFirstCharacter = true
     })
 })
-
-
-display.textContent = displayValue.join('')
