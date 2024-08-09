@@ -63,7 +63,7 @@ body {
     flex: 1;
 }
 
-.sign {
+.sign, #equals {
     background-color: #FEA00F;
     flex: 1;
 }
