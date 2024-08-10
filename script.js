@@ -12,22 +12,29 @@ const numberButtons = document.querySelectorAll('.number')
 const periodButton = document.querySelector('#period')
 
 function add(a, b) {
-    return a + b
+    displayValue = `${a + b}`
+    displayText.textContent = displayValue
 }
 
 function subtract(a, b) {
-    return a - b
+    displayValue = `${a - b}`
+    displayText.textContent = displayValue
 }
 
 function multiply(a, b) {
-    return a * b
+    displayValue = `${a * b}`
+    displayText.textContent = displayValue
 }
 
 function divide(a, b) {
-    return a / b
+    displayValue = `${a / b}`
+    displayText.textContent = displayValue
 }
 
 function operate(a, b, operator) {
+    a = parseFloat(a)
+    b = parseFloat(b)
+
     switch(operator) {
         case 'addition': add(a, b)
         case 'subtraction': subtract(a, b)
@@ -39,7 +46,7 @@ function operate(a, b, operator) {
 
 allClearButton.addEventListener('click', () => {
     displayValue = '0'
-    display.textContent = displayValue
+    displayText.textContent = displayValue
     isFirstCharacter = true
 })
 
