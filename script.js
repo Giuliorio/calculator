@@ -72,6 +72,7 @@ numberButtons.forEach(numberButton => {
 })
 
 equalsButton.addEventListener('click', (e => {
+    if (isFirstCharacter) return
     secondNumber = displayValue
     operate(firstNumber, secondNumber, operator)
     isFirstCharacter = true
