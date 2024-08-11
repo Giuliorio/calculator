@@ -59,6 +59,9 @@ function operate(a, b, operator) {
 
 allClearButton.addEventListener('click', () => {
     displayText.textContent = 0
+    firstNumber = 0
+    operator = null
+    secondNumber = 0
     isFirstCharacter = true
 })
 
