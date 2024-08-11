@@ -46,12 +46,11 @@ function operate(a, b, operator) {
     }
 
     if (! Number.isInteger(total)) {
-        displayText.textContent =  total.toPrecision(5)
-        return
+        total =  Math.round(total * 10 ** 5) / 10 ** 5
     }
 
     if (total.toString().length > 9) {
-        total = total.toExponential(1)
+        total = total.toExponential(3)
     }
 
     displayText.textContent = total
