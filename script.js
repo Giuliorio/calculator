@@ -62,46 +62,40 @@ function operate(a, b, operator) {
     displayText.textContent = total
 }
 
-allClearButton.addEventListener('click', () => {
+function handleNumbers(number) {
+    if (isFirstCharacter) {
+        isFirstCharacter = number == 0 ? true : false
+        displayText.textContent = number
+    } 
+    else {
+        displayText.textContent += number
+    }
+    const maxLength = getMaxLength()
+    if (displayText.textContent.length > maxLength) displayText.textContent = displayText.textContent.slice(0, maxLength)
+}
+
+function handleAllClear() {
     displayText.textContent = 0
     firstNumber = 0
     operator = null
     secondNumber = 0
     isFirstCharacter = true
-})
+}
 
-numberButtons.forEach(numberButton => {
-    numberButton.addEventListener('click', (e) => {
-        const number = e.currentTarget.textContent  
-
-        if (isFirstCharacter) {
-            isFirstCharacter = number == 0 ? true : false
-            displayText.textContent = number
-        } 
-        else {
-            displayText.textContent += number
-        }
-        const maxLength = getMaxLength()
-        if (displayText.textContent.length > maxLength) displayText.textContent = displayText.textContent.slice(0, maxLength)
-    }) 
-})
-
-equalsButton.addEventListener('click', (e => {
+function handleEquals() {
     if (isFirstCharacter) return
     secondNumber = parseFloat(displayText.textContent)
     operate(firstNumber, secondNumber, operator)
     isFirstCharacter = true
-}))
+}
 
-signButtons.forEach(signButton => {
-    signButton.addEventListener('click', (e) => {
-        firstNumber = parseFloat(displayText.textContent)
-        operator = e.currentTarget.id
-        isFirstCharacter = true
-    })
-})
+function handleSigns(sign) {
+    firstNumber = parseFloat(displayText.textContent)
+    operator = sign
+    isFirstCharacter = true
+}
 
-periodButton.addEventListener('click', () => {
+function handlePeriod() {
     if (isFirstCharacter) {
         displayText.textContent = '0.'
         return
@@ -110,13 +104,75 @@ periodButton.addEventListener('click', () => {
 
     displayText.textContent += '.'
     isFirstCharacter = false
-})
+}
 
-percentButton.addEventListener('click', () => {
+function handlePercent() {
     displayText.textContent = parseFloat(displayText.textContent) / 100
     isFirstCharacter = true
+}
+
+function handlePlusMinus() {
+    displayText.textContent = parseInt(displayText.textContent) * -1
+}
+
+allClearButton.addEventListener('click', handleAllClear)
+
+numberButtons.forEach(numberButton => {
+    numberButton.addEventListener('click', (e) => {
+        handleNumbers(e.currentTarget.textContent)
+    }) 
 })
 
-plusMinusButton.addEventListener('click', () => {
-    displayText.textContent = parseInt(displayText.textContent) * -1
+equalsButton.addEventListener('click', handleEquals)
+
+signButtons.forEach(signButton => {
+    signButton.addEventListener('click', (e) => {
+        handleSigns(e.currentTarget.id)
+    })
+})
+
+periodButton.addEventListener('click', handlePeriod)
+
+percentButton.addEventListener('click', handlePercent)
+
+plusMinusButton.addEventListener('click', handlePlusMinus)
+
+window.addEventListener('keydown', (e) => {
+    let key = e.key
+
+    if (parseFloat(key) || parseFloat(key) === 0) {
+        handleNumbers(key)
+    }
+
+    switch(key) {
+        case '=':
+        case 'Enter':
+            handleEquals()
+            break
+        case '+':
+            handleSigns('addition')
+            break
+        case '-':
+            handleSigns('subtraction')
+            break
+        case '*':
+            handleSigns('multiplication')
+            break
+        case '/':
+            e.preventDefault()
+            handleSigns('division')
+            break
+        case 'c':
+            handleAllClear()
+            break
+        case '%':
+            handlePercent()
+            break
+        case '.':
+            handlePeriod()
+            break
+        case '_':
+            handlePlusMinus()
+        default: return
+    }
 })
