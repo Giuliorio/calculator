@@ -95,6 +95,16 @@ function handleSigns(sign) {
     isFirstCharacter = true
 }
 
+function handleBackspace() {
+    let textLength = displayText.textContent.length
+    displayText.textContent = displayText.textContent.slice(0, textLength - 1)
+
+    if (displayText.textContent === "") {
+        displayText.textContent = '0' 
+        isFirstCharacter = true  
+    } 
+}
+
 function handlePeriod() {
     if (isFirstCharacter) {
         displayText.textContent = '0.'
@@ -173,6 +183,9 @@ window.addEventListener('keydown', (e) => {
             break
         case '_':
             handlePlusMinus()
+            break
+        case 'Backspace':
+            handleBackspace()
         default: return
     }
 })
