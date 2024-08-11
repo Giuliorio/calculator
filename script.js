@@ -9,6 +9,7 @@ const signButtons = document.querySelectorAll('.sign')
 const equalsButton = document.querySelector('#equals')
 const numberButtons = document.querySelectorAll('.number')
 const periodButton = document.querySelector('#period')
+const percentButton = document.querySelector('#percent')
 
 function add(a, b) {
     return a + b
@@ -96,8 +97,17 @@ signButtons.forEach(signButton => {
 })
 
 periodButton.addEventListener('click', () => {
+    if (isFirstCharacter) {
+        displayText.textContent = '0.'
+        return
+    }
     if (displayText.textContent.includes('.')) return
 
     displayText.textContent += '.'
     isFirstCharacter = false
+})
+
+percentButton.addEventListener('click', () => {
+    displayText.textContent = parseFloat(displayText.textContent) / 100
+    isFirstCharacter = true
 })
