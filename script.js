@@ -67,11 +67,13 @@ allClearButton.addEventListener('click', () => {
 
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener('click', (e) => {
-        const number = e.currentTarget.textContent
+        const number = e.currentTarget.textContent  
+
         if (isFirstCharacter) {
-            isFirstCharacter = false
+            isFirstCharacter = number == 0 ? true : false
             displayText.textContent = number
-        } else {
+        } 
+        else {
             displayText.textContent += number
         }
         const maxLength = 9
