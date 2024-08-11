@@ -93,3 +93,9 @@ signButtons.forEach(signButton => {
         isFirstCharacter = true
     })
 })
+
+periodButton.addEventListener('click', () => {
+    if (displayText.textContent.includes('.')) return
+
+    displayText.textContent += '.'
+})
