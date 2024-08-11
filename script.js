@@ -1,5 +1,4 @@
-let displayValue = '0',
-    isFirstCharacter = true,
+let isFirstCharacter = true,
     firstNumber,
     operator,
     secondNumber
@@ -12,49 +11,54 @@ const numberButtons = document.querySelectorAll('.number')
 const periodButton = document.querySelector('#period')
 
 function add(a, b) {
-    displayValue = `${a + b}`
-    displayText.textContent = displayValue
+    return a + b
 }
 
 function subtract(a, b) {
-    displayValue = `${a - b}`
-    displayText.textContent = displayValue
+    return a - b
 }
 
 function multiply(a, b) {
-    displayValue = `${a * b}`
-    displayText.textContent = displayValue
+    return a * b
 }
 
 function divide(a, b) {
-    displayValue = `${a / b}`
-    displayText.textContent = displayValue
+    return a / b
 }
 
 function operate(a, b, operator) {
-    a = parseFloat(a)
-    b = parseFloat(b)
-
+    let total = 0
     switch(operator) {
         case 'addition':
-            add(a, b)
+            total = add(a, b)
             break
         case 'subtraction': 
-            subtract(a, b)
+            total = subtract(a, b)
             break
         case 'multiplication': 
-            multiply(a, b)
+            total = multiply(a, b)
             break
         case 'division': 
-            divide(a, b)
+            total = divide(a, b)
             break
-        default: return
+        default: 
+            return
     }
+
+    if (! Number.isInteger(total)) {
+        displayText.textContent =  total.toPrecision(5)
+        return
+    }
+
+    if (total.toString().length > 9) {
+        total = total.toExponential(1)
+    }
+
+    displayText.textContent = total
 }
 
 allClearButton.addEventListener('click', () => {
-    displayValue = '0'
-    displayText.textContent = displayValue
+    displayText.textContent = 0
     isFirstCharacter = true
 })
 
@@ -63,24 +67,25 @@ numberButtons.forEach(numberButton => {
         const number = e.currentTarget.textContent
         if (isFirstCharacter) {
             isFirstCharacter = false
-            displayValue = number
+            displayText.textContent = number
         } else {
-            displayValue += number
+            displayText.textContent += number
         }
-        displayText.textContent = displayValue
+        const maxLength = 9
+        if (displayText.textContent.length > maxLength) displayText.textContent = displayText.textContent.slice(0, maxLength)
     }) 
 })
 
 equalsButton.addEventListener('click', (e => {
     if (isFirstCharacter) return
-    secondNumber = displayValue
+    secondNumber = parseFloat(displayText.textContent)
     operate(firstNumber, secondNumber, operator)
     isFirstCharacter = true
 }))
 
 signButtons.forEach(signButton => {
     signButton.addEventListener('click', (e) => {
-        firstNumber = displayValue
+        firstNumber = parseFloat(displayText.textContent)
         operator = e.currentTarget.id
         isFirstCharacter = true
     })
