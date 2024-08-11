@@ -10,6 +10,11 @@ const equalsButton = document.querySelector('#equals')
 const numberButtons = document.querySelectorAll('.number')
 const periodButton = document.querySelector('#period')
 const percentButton = document.querySelector('#percent')
+const plusMinusButton = document.querySelector('#plusminus')
+
+function getMaxLength() {
+    return displayText.textContent.match('-') ? 9 : 8
+}
 
 function add(a, b) {
     return a + b
@@ -50,8 +55,8 @@ function operate(a, b, operator) {
         total =  Math.round(total * 10 ** 5) / 10 ** 5
     }
 
-    if (total.toString().length > 9) {
-        total = total.toExponential(3)
+    if (total.toString().length > getMaxLength()) {
+        total = total.toExponential(2)
     }
 
     displayText.textContent = total
@@ -76,7 +81,7 @@ numberButtons.forEach(numberButton => {
         else {
             displayText.textContent += number
         }
-        const maxLength = 9
+        const maxLength = getMaxLength()
         if (displayText.textContent.length > maxLength) displayText.textContent = displayText.textContent.slice(0, maxLength)
     }) 
 })
@@ -110,4 +115,8 @@ periodButton.addEventListener('click', () => {
 percentButton.addEventListener('click', () => {
     displayText.textContent = parseFloat(displayText.textContent) / 100
     isFirstCharacter = true
+})
+
+plusMinusButton.addEventListener('click', () => {
+    displayText.textContent = parseInt(displayText.textContent) * -1
 })
